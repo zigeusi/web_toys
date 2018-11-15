@@ -417,5 +417,26 @@
                 </div>
             </footer>
         </div> 
+        <script>
+            const imgs = document.querySelectorAll('img');
+            const checkSlide = () =>{
+                imgs.forEach(img => {
+                    const imageTop = img.offsetTop;
+                    const slideInAt = (window.scrollY + window.innerHeight) - img.height / 2;
+                    const isHalfShown = slideInAt > imageTop;
+                    const imgBottom = imageTop + img.height;
+                    const isNotPassed = window.scrollY < imgBottom; 
+
+                    if(isHalfShown && isNotPassed){
+                        img.classList.add('active');
+                    } else{
+                        img.classList.remove('active');
+                    }
+                });
+                 
+            }
+
+            window.addEventListener('scroll', checkSlide)
+        </script>
     </body>
 </html>
