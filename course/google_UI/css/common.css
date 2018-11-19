@@ -604,13 +604,12 @@ footer .footer-bottom a{
 footer .footer-bottom a:first-child{
 	padding-left: 0;
 }
-
 img{
 	opacity: 0;
-	transform: translateX(-100px) scale(1);
+	transform: translateX(-100px);
 	transition: all 0.5s ease-out;
 }
 .active{
 	opacity: 1;
-	transform: translateX(0) scale(1.15);
+	transform: translateX(0);
 }
