@@ -60,7 +60,7 @@
   const imgs = document.querySelectorAll('img');
   const previousPosition = window.pageYOffset || document.documentElement.scrollTop;
 
-  const stickyNav = () =>{
+  const stickyNav = () => {
     const scrollY = window.scrollY;
     const headerHeight = header.offsetHeight;
     const currentPosition = window.pageYOffset || document.documentElement.scrollTop;
@@ -76,19 +76,18 @@
   }
 
   const checkSlideImg = function(){
-    for( i=0; i < imgs.length; i++ ){
-      const imgTop = imgs[i].offsetTop;
-      const slidePos = (window.innerHeight + window.scrollY) + imgs[i].offsetHeight / 2;
-      const slideIn = imgTop < slidePos;
-      const imgBottom = imgTop + imgs[i].offsetHeight;
-      const passedBy = window.scrollY < imgBottom;
-      if(slideIn && !passedBy){
-        imgs[i].classList.add('active');
-      }else{
-        imgs[i].classList.remove('active');
-      }
-
-    }
+      imgs.forEach(img => {
+          const imageTop = img.offsetTop;
+          const slideInAt = window.scrollY + img.offsetHeight / 2;
+          const isHalfShown = slideInAt > imageTop;
+          const imgBottom = imageTop + (img.offsetHeight * 2);
+          const isNotPassed = window.scrollY < imgBottom; 
+          if(isHalfShown && isNotPassed){
+              img.classList.add('active');
+          } else{
+              img.classList.remove('active');
+          }
+      });
   }
   window.addEventListener('scroll',() => {
     stickyNav();

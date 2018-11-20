@@ -425,11 +425,14 @@
                     const slideInAt = (window.scrollY + window.innerHeight) - img.height / 2;
                     const isHalfShown = slideInAt > imageTop;
                     const imgBottom = imageTop + img.height;
+                    console.log(img.height, imageTop, imgBottom)
                     const isNotPassed = window.scrollY < imgBottom; 
 
                     if(isHalfShown && isNotPassed){
+                        console.log('see');
                         img.classList.add('active');
                     } else{
+                        console.log('blind');
                         img.classList.remove('active');
                     }
                 });

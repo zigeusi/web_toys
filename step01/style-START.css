@@ -43,15 +43,24 @@ nav {
   background:black;
   top:0;
   width: 100%;
-  transition:all 0.5s;
+  transition:all 0.5s ease-in-out;
   position: relative;
   z-index: 1;
 }
 
 nav.on{
   position: fixed;
+  animation: smoothScroll 0.5s forwards;
 }
 
+@keyframes smoothScroll {
+	0% {
+		transform: translateY(-40px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
 nav ul {
   margin: 0;
   padding:0;
