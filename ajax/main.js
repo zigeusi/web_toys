@@ -90,7 +90,6 @@ const searchFilmInfo = (movieName) => {
     };
     req.send(null);
 }
-
 window.addEventListener('load', () => {
     let userInput = '';
     const searchBtn = document.querySelector('[data-search-btn]');
