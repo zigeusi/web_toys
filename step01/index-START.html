@@ -67,9 +67,11 @@
     const toDown = previousPosition < currentPosition;
     
     if( headerHeight <= scrollY && toDown){
+      document.body.style.paddingTop = `${nav.offsetHeight}px`;
       logo.classList.add('active');
       nav.classList.add('on');
     }else{
+      document.body.style.paddingTop = `0`;
       logo.classList.remove('active');
       nav.classList.remove('on');
     }         

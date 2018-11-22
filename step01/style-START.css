@@ -50,17 +50,17 @@ nav {
 
 nav.on{
   position: fixed;
-  animation: smoothScroll 0.5s forwards;
+  /* animation: smoothScroll 0.5s forwards; */
 }
 
-@keyframes smoothScroll {
+/* @keyframes smoothScroll {
 	0% {
 		transform: translateY(-40px);
 	}
 	100% {
 		transform: translateY(0px);
 	}
-}
+} */
 nav ul {
   margin: 0;
   padding:0;
