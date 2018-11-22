@@ -5,18 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Actor info</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
     <script src="main.js"></script>
 </head>
 <body>
+    <section data-search-form>
+        <form>
+            <input type="text" data-search-input>
+            <button type="button" data-search-btn>검색</button>
+        </form>
+    </section>
     <section data-actor>
         <article data-profile>
-            <h1>이름</h1>
-            <h2>역할</h2>
+            <h1 data-name>이름</h1>
+            <h2 data-role>역할</h2>
         </article>
         <article data-filmos>
-            <p>필모리스트</p>
+            <p data-filmo>필모리스트</p>
         </article>
     </section>
+    <div id="overlay" data-overlay>
+        <div class="modal" data-modal onclick="modalClose()">
+            <div data-close-btn>x</div>
+            <h4 data-director>감독: </h1>
+            <h4 data-year>제작연도: </h2>
+            <h4 data-genre>장르: </h2>
+            <h4 data-type>배우들: </h2>
+        </div>
+    </div>
 </body>
 </html>
