@@ -9,6 +9,25 @@
 //   }
 // };
 // req.send(null);
+
+let movieName = '';
+
+const selectFilms = (filmNameEl) => {
+    movieName = filmNameEl.textContent;
+    searchFilmInfo(movieName);
+    modalOpen();
+}
+
+//Cannot read property 'style' of null   
+const modalOpen = ()  => {
+    let modalOverlay = document.querySelector('[data-overlay]');  
+    modalOverlay.style.display = "block";
+}
+const modalClose =  () => {
+    let modalOverlay = document.querySelector('[data-overlay]');  
+    modalOverlay.style.display = "none";
+}
+
 const searchActor = (userInput) => {
     const req = new XMLHttpRequest();
     req.open('GET', `http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=b0cac97aa508433ca9835e54ab51d7cd&peopleNm=${userInput}`, true);
@@ -25,22 +44,14 @@ const searchActor = (userInput) => {
                 const role = people[0].repRoleNm;
                 const filmo = people[0].filmoNames;
                 const filmArr = filmo.split('|');
-           
+                let films = '';
+
                 actorName.innerHTML = name;
                 actorRole.innerText = role;
                 filmArr.forEach(film => {
-                    actorFilmo.innerHTML += "<button type='button' data-filmBtn onClick = 'selectFilms(this);'>" + film + "</button>";
-                  })
-                /** 이렇게 바꾸면 됩니다.
-                 *  actorFilmo.innerHTML = filmArr.map(film => {
-                 *    return "<button type='button' data-filmBtn>" + film + "</button>";
-                 *  }).join(' ');
-                 *  const filmoBtn = document.querySelectorAll('[data-filmBtn]');
-                 *  filmoBtn.forEach(value => {
-                 *    value.addEventListener('click', selectFilms);
-                 *  });
-                 */
-
+                    films += "<button type='button' data-filmBtn onClick = 'selectFilms(this);'>" + film + "</button>"
+                    actorFilmo.innerHTML = films;
+            })           
             }else{
                 console.log('Error!');
             }
@@ -70,10 +81,10 @@ const searchFilmInfo = (movieName) => {
                 const genre = movie[0].genreAlt;
                 const filmType = movie[0].typeNm;  
                 
-                movieDirector.innerHTML += director;
-                movieYear.innerHTML += year;
-                movieGenre.innerHTML += genre;
-                movieType.innerHTML += filmType;
+                movieDirector.innerHTML = '감독: ' + director;
+                movieYear.innerHTML = '개봉연도: ' + year;
+                movieGenre.innerHTML = '장르: ' + genre;
+                movieType.innerHTML = '영화분류: ' + filmType;
 
             }else{
                 console.log('Error!');
@@ -98,20 +109,3 @@ window.addEventListener('load', () => {
     })  
 })
 
-let movieName = '';
-
-const selectFilms = (filmName) => {
-  movieName = filmName.textContent;
-  searchFilmInfo(movieName);
-  modalOpen();
-}
-
-//Cannot read property 'style' of null   
-const modalOpen = () => {
-    let modalOverlay = document.querySelector('[data-overlay]');  
-    modalOverlay.style.display = "block";
-}
-const modalClose =  () => {
-    let modalOverlay = document.querySelector('[data-overlay]');  
-    modalOverlay.style.display = "none";
-}
