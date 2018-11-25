@@ -30,13 +30,26 @@ const searchActor = (userInput) => {
                 actorRole.innerText = role;
                 filmArr.forEach(film => {
                     actorFilmo.innerHTML += "<button type='button' data-filmBtn onClick = 'selectFilms(this);'>" + film + "</button>";
-            })           
+                  })
+                /** 이렇게 바꾸면 됩니다.
+                 *  actorFilmo.innerHTML = filmArr.map(film => {
+                 *    return "<button type='button' data-filmBtn>" + film + "</button>";
+                 *  }).join(' ');
+                 *  const filmoBtn = document.querySelectorAll('[data-filmBtn]');
+                 *  filmoBtn.forEach(value => {
+                 *    value.addEventListener('click', selectFilms);
+                 *  });
+                 */
+
             }else{
                 console.log('Error!');
             }
         }
     };
     req.send(null);
+    function con(e) {
+      console.log(e)
+    }
 }
 
 const searchFilmInfo = (movieName) => {
@@ -88,13 +101,13 @@ window.addEventListener('load', () => {
 let movieName = '';
 
 const selectFilms = (filmName) => {
-    movieName = filmName.textContent;
-    searchFilmInfo(movieName);
-    modalOpen();
+  movieName = filmName.textContent;
+  searchFilmInfo(movieName);
+  modalOpen();
 }
 
 //Cannot read property 'style' of null   
-const modalOpen = ()  => {
+const modalOpen = () => {
     let modalOverlay = document.querySelector('[data-overlay]');  
     modalOverlay.style.display = "block";
 }
