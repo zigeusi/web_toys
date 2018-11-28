@@ -79,10 +79,12 @@
 
   const checkSlideImg = function(){
       imgs.forEach(img => {
-          const imageTop = img.offsetTop;
-          const slideInAt = window.scrollY + img.offsetHeight / 2;
+          const imageTop = img.offsetTop + document.querySelector('.site-wrap').offsetTop;
+          // const slideInAt = window.scrollY + img.offsetHeight / 2;
+          const slideInAt = window.scrollY + window.innerHeight - img.height / 2;
           const isHalfShown = slideInAt > imageTop;
-          const imgBottom = imageTop + (img.offsetHeight * 2);
+          // const imgBottom = imageTop + (img.offsetHeight * 2);
+          const imgBottom = imageTop + img.offsetHeight;
           const isNotPassed = window.scrollY < imgBottom; 
           if(isHalfShown && isNotPassed){
               img.classList.add('active');
