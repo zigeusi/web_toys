@@ -86,7 +86,7 @@ const init = () => {
     searchFilmInfo(movieName);
     modalOpen();
   };
-
+  //
   //Cannot read property 'style' of null
   const modalOpen = () => {
     let modalOverlay = document.querySelector("[data-overlay]");
