@@ -2,54 +2,43 @@ const init = () => {
   let movieName = "";
 
   const searchFilmInfo = movieName => {
-    const req = new XMLHttpRequest();
-    req.open(
-      "GET",
-      ` http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=b0cac97aa508433ca9835e54ab51d7cd&movieNm=${movieName}`,
-      true
-    );
-    req.onreadystatechange = () => {
-      if (req.readyState === 4) {
-        if (req.status === 200) {
-          const movieDirector = document.querySelector("[data-director]");
-          const movieYear = document.querySelector("[data-year]");
-          const movieGenre = document.querySelector("[data-genre]");
-          const movieType = document.querySelector("[data-type]");
+    fetch( ` http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=b0cac97aa508433ca9835e54ab51d7cd&movieNm=${movieName}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(movieName)
+        const movieDirector = document.querySelector("[data-director]");
+        const movieYear = document.querySelector("[data-year]");
+        const movieGenre = document.querySelector("[data-genre]");
+        const movieType = document.querySelector("[data-type]");
 
-          const data = JSON.parse(req.responseText);
-          const movie = data.movieListResult.movieList;
-          const director = movie[0].directors[0].peopleNm;
-          const year = movie[0].prdtYear;
-          const genre = movie[0].genreAlt;
-          const filmType = movie[0].typeNm;
+        const movie = data.movieListResult.movieList;
+        const director = movie[0].directors[0].peopleNm;
+        const year = movie[0].prdtYear;
+        const genre = movie[0].genreAlt;
+        const filmType = movie[0].typeNm;
 
-          movieDirector.innerHTML = "감독: " + director;
-          movieYear.innerHTML = "개봉연도: " + year;
-          movieGenre.innerHTML = "장르: " + genre;
-          movieType.innerHTML = "영화분류: " + filmType;
-        } else {
-          console.log("Error!");
-        }
-      }
-    };
-    req.send(null);
+        movieDirector.innerHTML = "감독: " + director;
+        movieYear.innerHTML = "개봉연도: " + year;
+        movieGenre.innerHTML = "장르: " + genre;
+        movieType.innerHTML = "영화분류: " + filmType;
+        modalOpen();
+      }) 
   };
 
   const searchActor = userInput => {
-    const req = new XMLHttpRequest();
-    req.open(
-      "GET",
-      `http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=b0cac97aa508433ca9835e54ab51d7cd&peopleNm=${userInput}`,
-      true
-    );
-    req.onreadystatechange = () => {
-      if (req.readyState === 4) {
-        if (req.status === 200) {
-          const actorName = document.querySelector("[data-name]");
+    fetch( `http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=b0cac97aa508433ca9835e54ab51d7cd&peopleNm=${userInput}`)
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data)
+      const actorName = document.querySelector("[data-name]");
           const actorRole = document.querySelector("[data-role]");
-          const actorFilmo = document.querySelector("[data-filmo]");
+          const actorFilmo = document.querySelector("[data-filmos]");
 
-          const data = JSON.parse(req.responseText);
           const people = data.peopleListResult.peopleList;
           const name = people[0].peopleNm;
           const role = people[0].repRoleNm;
@@ -71,20 +60,14 @@ const init = () => {
           const filmoBtn = document.querySelectorAll("[data-filmBtn]");
 
           filmoBtn.forEach(value => {
-            value.addEventListener("click", selectFilms);
+            value.addEventListener("click", (e) => selectFilms(e.currentTarget));
           });
-        } else {
-          console.log("Error!");
-        }
-      }
-    };
-    req.send(null);
+      })        
   };
 
   const selectFilms = filmNameEl => {
     movieName = filmNameEl.textContent;
     searchFilmInfo(movieName);
-    modalOpen();
   };
   //
   //Cannot read property 'style' of null
@@ -116,7 +99,7 @@ const init = () => {
       searchActor(userInput);
     });
   };
-
+  document.querySelector('[ data-close-btn]').addEventListener('click', modalClose)
   preventRedirect();
   dispatchSearchEvent();
 };

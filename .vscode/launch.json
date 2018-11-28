@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\lotto\\lotto.js"
+            "program": "${workspaceFolder}\\step02\\main.js"
         }
     ]
 }
