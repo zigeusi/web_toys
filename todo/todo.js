@@ -17,21 +17,35 @@
 
 const todoList = [];
 const command = (word) => {
-    const order = word.toLowerCase().replace(/\s/g, "");
-    if(/^add/.test(order)||/^update/.test(order)||/^show/.test(order)){
-        const [orderName, ...arr] = order.split('$');
-        if(orderName =="add"){
+    // const order = word.toLowerCase().replace(/\s/g, "");
+    let [orderName, ...arr] = order.split('$');
+    ordername = orderName.toLowerCase().trim();
+    switch (ordername) {
+        case 'add': 
             add(...arr);
-        }
-        else if(orderName =="show") {
+            break;
+        case 'show': 
             show(...arr);
-        }
-        else if(orderName =="update"){
+            break;
+        case 'update':
             update(...arr);
-        }
-    }else{
-        console.log("error")
+            break;
+        default: console.log('error'); 
     }
+
+    // if(/^add/.test(order)||/^update/.test(order)||/^show/.test(order)){
+    //     const [orderName, ...arr] = order.split('$');
+
+    //     // if(orderName =="add"){
+
+    //     // }
+    //     // else if(orderName =="show") {
+    //     // }
+    //     // else if(orderName =="update"){
+    //     // }
+    // }else{
+    //     console.log("error")
+    // }
 }
 const add = (...arr) => {
     const todo = {
@@ -80,22 +94,29 @@ const update = (...arr) => {
 }
 
 const show = (...arr) => {
-    if(arr[0] == "doing"){
+    if (arr[0] === 'doing' || arr[0] === 'done') {
         todoList.forEach(todo => {
-         let result = Object.values(todo).filter(v => v ==="doing").length      
-         if(result > 0){
-             console.log(todo.id,todo.name)
-         }
-        })
-    }else if(arr[0] == "done"){
-        todoList.forEach(todo => {
-            let result = Object.values(todo).filter(v => v ==="done").length      
+            let result = Object.values(todo).filter(v => v === arr[0]).length;
             if(result > 0){
-                console.log(todo.id,todo.name,todo.time)
+                switch (arr[0]) {
+                    case "doing":
+                        console.log(todo.id,todo.name);
+                        break;
+                    case "done":
+                        console.log(todo.id,todo.name,todo.time)
+                        break;
+                    default:
+                        console.error('error');
+                        break;
+                }
             }
-           })
-   
-    }else{
-        console.log(error);
+        })            
     }
 }
+    // if(arr[0] == "doing"){
+        
+    // }else if(arr[0] == "done"){
+        
+    // }else{
+    //     console.log("error");
+    // }
